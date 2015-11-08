@@ -1,0 +1,106 @@
+---
+title: "R Bridge Week 2 Assignment"
+output: html_document
+---
+
+#### Rob Hodde
+  
+#### November 8, 2015
+
+***
+
+### Problem Statement:
+
+In probability, "n choose r" means n! / (( n - r)! * r!). For example, "5 choose 3" evaluates to 10.  
+
+R has built in functions for choose() and factorial(). Your task is to write your own variation of the choose() function, that does not use either of these functions. Your code should adhere to the style guidelines provided by Hadley Wickham in this week's reading.  
+
+You need to 
+
+ - create your code 
+ 
+ - and some test code
+ 
+ - deliver your code, results, and documentation in a single R Markdown file  
+  
+  
+***
+  
+### Solution:
+
+First we will make a factorial function to be used in the "n chooses r" function:
+
+```{r}
+
+fn_calc_factorial <- function(n) {
+  
+  iproduct <- 1 # set initial value
+  
+  # build up factorial value in a loop
+  for(i in 1:n) {
+   iproduct <- iproduct * i  # multiply the product by the new value to build up the factorial
+  }
+  
+  return (iproduct)
+}
+
+```
+
+  
+
+
+Next we will create the "n choose r" function:
+
+```{r}
+
+fn_calc_choose <- function(n,r) {
+  
+  # we are performing this action:  n! / (( n - r)! * r!)
+  ichoose <- fn_calc_factorial(n) / (fn_calc_factorial(n - r) * fn_calc_factorial(r))
+  
+  return (ichoose)  
+}
+   
+```
+
+***
+  
+### Test Cases
+
+**Test 1:**  If three flavors of ice cream are available, how many different double scoop cones can be made?
+
+```{r}
+
+test_1 <- fn_calc_choose(3, 2)
+test_1
+
+```
+
+*Answer:* `r fn_calc_choose(3, 2)`
+
+
+**Test 2:**  How many different assemblies can we build using four components if we have 15 componenents available?
+
+```{r}
+
+test_2 <- fn_calc_choose(15, 4)
+test_2
+
+```
+
+*Answer:* `r fn_calc_choose(15, 4)`
+
+
+**Test 3:**  Unit Test of factorial function:
+
+```{r}
+
+ ifactorial <- fn_calc_factorial(4)  # answer should be 1 x 2 x 3 x 4 = 24.
+ ifactorial
+```
+
+*Answer:* `r fn_calc_factorial(4)`
+
+
+
+
